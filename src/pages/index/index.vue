@@ -25,7 +25,7 @@ export default {
   methods: {
     getTicketsByTag (tagName) {
       console.log(tagName)
-      getTickets({ q: tag_name, offset: 0, limit: 20 }).then((response) => {
+      getTickets({ q: tagName, offset: 0, limit: 20 }).then((response) => {
         this.data.tickets = response.data
       })
     }
