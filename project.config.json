@@ -9,7 +9,7 @@
 	},
 	"miniprogramRoot": "dist/wx/",
 	"compileType": "miniprogram",
-	"appid": "gh_c7c20881edc6",
+	"appid": "wxfdf267a3c940d02e",
 	"projectname": "sesame_vue",
 	"condition": {
 		"search": {
