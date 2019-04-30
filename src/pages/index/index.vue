@@ -6,11 +6,12 @@
         label="出发城市">
       </van-field>
     </van-cell-group>
+    <a @click="goCities" class="fromStation">北京</a>
   </div>
 </template>
 
 <script>
-import card from '@/components/card'
+import wx from '@/utils/wx'
 
 export default {
   data () {
@@ -24,22 +25,11 @@ export default {
     }
   },
 
-  components: {
-    card
-  },
-
   methods: {
-    bindViewTap () {
-      const url = '../logs/main'
-      if (mpvuePlatform === 'wx') {
-        mpvue.switchTab({ url })
-      } else {
-        mpvue.navigateTo({ url })
-      }
-    },
-    clickHandle (ev) {
-      console.log('clickHandle:', ev)
-      // throw {message: 'custom test'}
+    goCities () {
+      wx.navigateTo({
+        url: '../cities/main?name=fuck'
+      })
     }
   },
 
