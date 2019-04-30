@@ -31,6 +31,16 @@
         搜索
       </van-button>
     </div>
+    <div id="trip-list">
+      <van-cell-group>
+        <van-cell v-for="trip in trips"
+                  :key="trip.id"
+                  :title="trip.toCity"
+                  :value="trip.durationMin + ' 分钟'"
+                  size="large"
+        ></van-cell>
+      </van-cell-group>
+    </div>
   </div>
 </template>
 
@@ -38,6 +48,7 @@
 import wx from '@/utils/wx'
 import store from '@/pages/cities/store'
 import mpvuePicker from 'mpvue-picker'
+import getTrips from '@/utils/api'
 
 export default {
   components: {
@@ -65,6 +76,23 @@ export default {
         {
           label: '4小时',
           value: 4
+        }
+      ],
+      trips: [
+        {
+          id: 1,
+          toCity: '上海',
+          durationMin: 300
+        },
+        {
+          id: 2,
+          toCity: '杭州',
+          durationMin: 200
+        },
+        {
+          id: 3,
+          toCity: '天津',
+          durationMin: 30
         }
       ]
     }
@@ -97,6 +125,14 @@ export default {
     },
     onSearchBtnClick () {
       this.loading = true
+    },
+    getTripList () {
+      getTrips({
+        fromCity: this.fromCity,
+        duration: this.duration,
+        offset: 0 }).then((res) => {
+          this.data.trips = res.data
+        })
     }
   },
 
@@ -106,7 +142,6 @@ export default {
 
   mounted () {
     this.fromCity = store.state.fromCity
-    console.log(store.state.fromCity, this.fromCity)
   }
 }
 </script>
