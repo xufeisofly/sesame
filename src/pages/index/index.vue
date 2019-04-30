@@ -127,12 +127,9 @@ export default {
       this.loading = true
     },
     getTripList () {
-      getTrips({
-        fromCity: this.fromCity,
-        duration: this.duration,
-        offset: 0 }).then((res) => {
-          this.data.trips = res.data
-        })
+      getTrips({ fromCity: this.fromCity, duration: this.duration, offset: 0 }).then((res) => {
+        this.data.trips = res.data
+      })
     }
   },
 
