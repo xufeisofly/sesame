@@ -35,8 +35,8 @@
       <van-cell-group>
         <van-cell v-for="trip in trips"
                   :key="trip.id"
-                  :title="trip.toCity"
-                  :value="trip.durationMin + ' 分钟'"
+                  :title="trip.to_city"
+                  :value="trip.duration_min + ' 分钟'"
                   size="large"
         ></van-cell>
       </van-cell-group>
@@ -78,23 +78,7 @@ export default {
           value: 4
         }
       ],
-      trips: [
-        {
-          id: 1,
-          toCity: '上海',
-          durationMin: 300
-        },
-        {
-          id: 2,
-          toCity: '杭州',
-          durationMin: 200
-        },
-        {
-          id: 3,
-          toCity: '天津',
-          durationMin: 30
-        }
-      ]
+      trips: []
     }
   },
   computed: {
@@ -125,10 +109,14 @@ export default {
     },
     onSearchBtnClick () {
       this.loading = true
+      this.getTripList()
     },
     getTripList () {
       getTrips({ fromCity: this.fromCity, duration: this.duration, offset: 0 }).then((res) => {
-        this.data.trips = res.data
+        this.trips = res.data.trips
+        this.loading = false
+      }).catch((e) => {
+        this.loading = false
       })
     }
   },
