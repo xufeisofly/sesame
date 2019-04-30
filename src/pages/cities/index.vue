@@ -12,7 +12,7 @@
         <van-row>
           <van-col span="8" v-for="city in cities" :key="city.id">
             <div class="city-item">
-              <van-button>{{ city.name }}</van-button>
+              <van-button @click="selectCity(city.name)">{{ city.name }}</van-button>
             </div>
           </van-col>
         </van-row>
@@ -22,6 +22,9 @@
 </template>
 
 <script>
+import wx from '@/utils/wx'
+import store from './store'
+
 export default {
   data () {
     return {
@@ -33,12 +36,22 @@ export default {
       ]
     }
   },
-
   mounted () {
     const pages = getCurrentPages()
     const currentPage = pages[pages.length - 1]
     const options = currentPage.options
     console.log(options)
+  },
+
+  methods: {
+    selectCity (cityName) {
+      store.commit('saveFromCity', cityName)
+      console.log(store.state.fromCity)
+
+      wx.navigateBack({
+        delta: 1
+      })
+    }
   }
 }
 </script>

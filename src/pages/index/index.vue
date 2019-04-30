@@ -12,16 +12,12 @@
 
 <script>
 import wx from '@/utils/wx'
+import store from '@/pages/cities/store'
 
 export default {
-  data () {
-    return {
-      motto: 'Hello miniprograme',
-      userInfo: {
-        nickName: 'mpvue',
-        avatarUrl: 'http://mpvue.com/assets/logo.png'
-      },
-      fromCity: null
+  computed: {
+    fromCity () {
+      return store.state.fromCity
     }
   },
 
@@ -35,6 +31,11 @@ export default {
 
   created () {
     // let app = getApp()
+  },
+
+  mounted () {
+    this.fromCity = store.state.fromCity
+    console.log(store.state.fromCity, this.fromCity)
   }
 }
 </script>
