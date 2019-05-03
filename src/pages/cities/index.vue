@@ -98,15 +98,16 @@ export default {
 .city-item {
   text-align: center;
   font-size: 14px;
-  border: 0.5px solid #ccc;
-  margin: 3px 5px;
+  border: 0.5px solid #f2f2f2;
+  margin: 5px 5px;
   padding: 3px 0;
+  color: #666;
 }
 
 .city-bar {
   font-size: 10px;
   display: block;
-  background-color: #ccc;
+  background-color: #f2f2f2;
   margin: 0;
 }
 
@@ -114,10 +115,11 @@ export default {
   margin: 0, 10px;
   margin-left: 10px;
   margin-right: 10px;
-  border-bottom: 0.1px #ccc solid;
+  border-bottom: 0.1px #f2f2f2 solid;
 }
 
 .city-list-item {
   font-size: 14px;
+  color: #666;
 }
 </style>
