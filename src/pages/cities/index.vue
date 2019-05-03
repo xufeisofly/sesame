@@ -50,6 +50,7 @@
 <script>
 import wx from '@/utils/wx'
 import store from './store'
+import { getCities } from '@/utils/api'
 
 export default {
   data () {
@@ -74,11 +75,8 @@ export default {
       letters: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
     }
   },
-  mounted () {
-    const pages = getCurrentPages()
-    const currentPage = pages[pages.length - 1]
-    const options = currentPage.options
-    console.log(options)
+  created () {
+    this.getCityList()
   },
 
   methods: {
@@ -88,6 +86,11 @@ export default {
 
       wx.navigateBack({
         delta: 1
+      })
+    },
+    getCityList () {
+      getCities().then(res => {
+        this.vacabCities = res.data
       })
     }
   }

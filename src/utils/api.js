@@ -10,3 +10,7 @@ export default function getTrips ({ fromCity = '', duration = '', offset = 0 } =
   params.offset = offset
   return request.get(`/trips`, params)
 }
+
+export function getCities () {
+  return request.get(`/cities`)
+}
