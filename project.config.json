@@ -11,6 +11,8 @@
 	"compileType": "miniprogram",
 	"appid": "wxfdf267a3c940d02e",
 	"projectname": "sesame",
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
 	"condition": {
 		"search": {
 			"current": -1,
