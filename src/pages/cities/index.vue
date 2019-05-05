@@ -63,7 +63,7 @@
 <script>
 import wx from '@/utils/wx'
 import store from './store'
-import { getCities } from '@/utils/api'
+import { getCities, addHotCity } from '@/utils/api'
 
 export default {
   data () {
@@ -96,6 +96,7 @@ export default {
   methods: {
     selectCity (cityName) {
       store.commit('saveFromCity', cityName)
+      addHotCity({hotCityName: cityName})
       wx.navigateBack({
         delta: 1
       })
@@ -108,6 +109,7 @@ export default {
         this.vacabCities = {...this.vacabCities, ...res.data.cities}
         this.nextLetter = res.data.next_letter
         this.letters.push(res.data.next_letter)
+        this.hotCities = res.data.hot_cities
 
         // reload data if no data returned
         if (res.data.has_data === false) {

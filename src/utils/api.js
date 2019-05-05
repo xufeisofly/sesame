@@ -20,3 +20,9 @@ export function getCities ({ letter = 'A', q = '' } = {}) {
   params.q = q
   return request.get(`/cities`, params)
 }
+
+export function addHotCity ({ hotCityName = '' } = {}) {
+  let params = {}
+  params.hot_city_name = hotCityName
+  return request.post(`/add_hot`, params)
+}
