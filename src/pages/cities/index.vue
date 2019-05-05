@@ -2,7 +2,7 @@
   <div class="cities-wrap">
     <van-search
       :value="inputValue"
-      placeholder="城市"
+      placeholder="城市/拼音/首字母"
       @focus="onFocusSearch"
       @cancel="onCancelSearch"
       @search="onSearch"
@@ -81,13 +81,12 @@ export default {
         { id: 3, name: '广州' }
       ],
       vacabCities: {},
-      searchCities: [
-        { id: 1, name: '北京' }
-      ],
+      searchCities: [],
       letters: ['A']
     }
   },
   onLoad () {
+    this.showSearchList = false
     this.getCityList()
   },
   onReachBottom () {
@@ -97,8 +96,6 @@ export default {
   methods: {
     selectCity (cityName) {
       store.commit('saveFromCity', cityName)
-      console.log(store.state.fromCity)
-
       wx.navigateBack({
         delta: 1
       })
