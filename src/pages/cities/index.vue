@@ -3,43 +3,56 @@
     <van-search
       :value="inputValue"
       placeholder="城市"
+      @focus="onFocusSearch"
+      @cancel="onCancelSearch"
+      @search="onSearch"
       show-action
     ></van-search>
 
-    <div id="position" class="city-block">
-      <p class="city-bar">定位</p>
-      <div class="city-list">
-        <van-row>
-          <van-col span="6" v-for="city in positionCities" :key="city.id">
-            <div class="city-item"
-                 @click="selectCity(city.name)">
-              {{ city.name }}
-            </div>
-          </van-col>
-        </van-row>
-      </div>
-    </div>
-
-    <div id="hot-city" class="city-block">
-      <p class="city-bar">热门城市</p>
-      <div class="city-list">
-        <van-row>
-          <van-col span="6" v-for="city in hotCities" :key="city.id">
-            <div class="city-item"
-                 @click="selectCity(city.name)">
-              {{ city.name }}
-            </div>
-          </van-col>
-        </van-row>
-      </div>
-    </div>
-
-    <div id="city-list" class="city-list">
-      <div class="cabulary-list" v-for="(letter, indexL) in letters" :key="letter">
-        <div class="letter-label">
-          <p class="city-bar">{{ letter }}</p>
+    <div class="default-list" v-if="!showSearchList">
+      <div id="position" class="city-block">
+        <p class="city-bar">定位</p>
+        <div class="city-list">
+          <van-row>
+            <van-col span="6" v-for="city in positionCities" :key="city.id">
+              <div class="city-item"
+                   @click="selectCity(city.name)">
+                {{ city.name }}
+              </div>
+            </van-col>
+          </van-row>
         </div>
-        <div class="city-list-item-wrapper" v-for="(city, indexC) in vacabCities[letter]" :key="city.id">
+      </div>
+
+      <div id="hot-city" class="city-block">
+        <p class="city-bar">热门城市</p>
+        <div class="city-list">
+          <van-row>
+            <van-col span="6" v-for="city in hotCities" :key="city.id">
+              <div class="city-item"
+                   @click="selectCity(city.name)">
+                {{ city.name }}
+              </div>
+            </van-col>
+          </van-row>
+        </div>
+      </div>
+
+      <div id="city-list" class="city-list">
+        <div class="cabulary-list" v-for="(letter, indexL) in letters" :key="letter">
+          <div class="letter-label">
+            <p class="city-bar">{{ letter }}</p>
+          </div>
+          <div class="city-list-item-wrapper" v-for="(city, indexC) in vacabCities[letter]" :key="city.id">
+            <p class="city-list-item" @click="selectCity(city.name)">{{ city.name }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="search-list" v-else>
+      <div class="city-list">
+        <div class="city-list-item-wrapper" v-for="(city, indexC) in searchCities" :key="city.id">
           <p class="city-list-item" @click="selectCity(city.name)">{{ city.name }}</p>
         </div>
       </div>
@@ -56,6 +69,9 @@ export default {
   data () {
     return {
       inputValue: null,
+      showSearchList: false,
+      nextLetter: 'A',
+      curLetter: 'A',
       positionCities: [
         { id: 1, name: '北京' }
       ],
@@ -64,18 +80,17 @@ export default {
         { id: 2, name: '上海' },
         { id: 3, name: '广州' }
       ],
-      vacabCities: {
-        B: [
-          { id: 1, name: '北京' }
-        ],
-        S: [
-          { id: 2, name: '上海' }
-        ]
-      },
-      letters: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+      vacabCities: {},
+      searchCities: [
+        { id: 1, name: '北京' }
+      ],
+      letters: ['A']
     }
   },
-  created () {
+  onLoad () {
+    this.getCityList()
+  },
+  onReachBottom () {
     this.getCityList()
   },
 
@@ -89,8 +104,29 @@ export default {
       })
     },
     getCityList () {
-      getCities().then(res => {
-        this.vacabCities = res.data
+      if (this.nextLetter === 'Z') {
+        return
+      }
+      getCities({ letter: this.nextLetter }).then(res => {
+        this.vacabCities = {...this.vacabCities, ...res.data.cities}
+        this.nextLetter = res.data.next_letter
+        this.letters.push(res.data.next_letter)
+
+        // reload data if no data returned
+        if (res.data.has_data === false) {
+          this.getCityList()
+        }
+      })
+    },
+    onCancelSearch () {
+      this.showSearchList = false
+    },
+    onFocusSearch () {
+      this.showSearchList = true
+    },
+    onSearch (e) {
+      getCities({ q: e.mp.detail }).then(res => {
+        this.searchCities = res.data.search_cities
       })
     }
   }
@@ -124,5 +160,6 @@ export default {
 .city-list-item {
   font-size: 14px;
   color: #666;
+  margin: 5px 0;
 }
 </style>

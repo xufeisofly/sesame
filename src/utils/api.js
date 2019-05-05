@@ -11,6 +11,12 @@ export default function getTrips ({ fromCity = '', duration = '', offset = 0 } =
   return request.get(`/trips`, params)
 }
 
-export function getCities () {
-  return request.get(`/cities`)
+export function getCities ({ letter = 'A', q = '' } = {}) {
+  let params = {}
+  if (letter === '' && q === '') {
+    return
+  }
+  params.letter = letter
+  params.q = q
+  return request.get(`/cities`, params)
 }
