@@ -26,3 +26,7 @@ export function addHotCity ({ hotCityName = '' } = {}) {
   params.hot_city_name = hotCityName
   return request.post(`/add_hot`, params)
 }
+
+export function getPoisByCityName ({ cityName = '' } = {}) {
+  return request.get(`/pois`, { city_name: cityName })
+}

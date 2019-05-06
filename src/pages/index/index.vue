@@ -38,6 +38,10 @@
                   :title="trip.to_city"
                   :value="trip.duration_min + ' 分钟'"
                   size="large"
+                  :url="'/pages/pois/main?city=' + trip.to_city"
+                  link-type="navigateTo"
+                  :is-link="true"
+                  arrow-direction="right"
         ></van-cell>
       </van-cell-group>
     </div>
