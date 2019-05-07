@@ -123,6 +123,17 @@ export default {
       }).catch((e) => {
         this.loading = false
       })
+    },
+    loadPosition () {
+      wx.getLocation({
+        type: 'wgs84',
+        success: function (res) {
+          store.commit('savePosition', res.longitude, res.latitude)
+          console.log(res)
+        },
+        fail: function () {},
+        complete: function () {}
+      })
     }
   },
 
@@ -132,6 +143,12 @@ export default {
 
   mounted () {
     this.fromCity = store.state.fromCity
+  },
+
+  onLoad () {
+    console.log('index.index onLoad')
+    // get location
+    this.loadPosition()
   }
 }
 </script>

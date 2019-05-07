@@ -5,11 +5,17 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    fromCity: null
+    fromCity: null,
+    longitude: null,
+    latitude: null
   },
   mutations: {
     saveFromCity: (state, fromCity) => {
       state.fromCity = fromCity
+    },
+    savePosition: (state, longitude, latitude) => {
+      state.longitude = longitude
+      state.latitude = latitude
     }
   }
 })

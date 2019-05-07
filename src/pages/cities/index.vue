@@ -88,6 +88,7 @@ export default {
   onLoad () {
     this.showSearchList = false
     this.getCityList()
+    console.log(store.state.longitude)
   },
   onReachBottom () {
     this.getCityList()
