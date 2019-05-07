@@ -3,6 +3,7 @@
     <van-cell-group>
       <van-field :value="fromCity"
                  label="出发城市"
+                 disabled
                  @click="goCities">
       </van-field>
     </van-cell-group>
@@ -62,7 +63,7 @@ export default {
 
   data () {
     return {
-      duration: null,
+      duration: '1小时',
       loading: false,
       pickerValueDefault: [1],
       pickerValueArray: [

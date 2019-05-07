@@ -17,6 +17,7 @@
             <van-col span="6" v-for="city in positionCities" :key="city.id">
               <div class="city-item"
                    @click="selectCity(city.name)">
+                <van-icon name="location" />
                 {{ city.name }}
               </div>
             </van-col>
