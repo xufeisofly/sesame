@@ -53,7 +53,7 @@
 import wx from '@/utils/wx'
 import store from '@/pages/cities/store'
 import mpvuePicker from 'mpvue-picker'
-import getTrips from '@/utils/api'
+import { getTrips, getCityByPosition } from '@/utils/api'
 
 export default {
   components: {
@@ -125,14 +125,22 @@ export default {
       })
     },
     loadPosition () {
+      var that = this
       wx.getLocation({
         type: 'wgs84',
         success: function (res) {
           store.commit('savePosition', res.longitude, res.latitude)
-          console.log(res)
+          that.loadCityByPosition(res.longitude, res.latitude)
         },
         fail: function () {},
         complete: function () {}
+      })
+    },
+    loadCityByPosition (lon, lat) {
+      getCityByPosition({lon: lon, lat: lat}).then(res => {
+        var curCityName = res.data.ret
+        store.commit('saveCurCityName', curCityName)
+        store.commit('saveFromCity', curCityName)
       })
     }
   },

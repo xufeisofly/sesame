@@ -1,6 +1,6 @@
 import request from './request'
 
-export default function getTrips ({ fromCity = '', duration = '', offset = 0 } = {}) {
+export function getTrips ({ fromCity = '', duration = '', offset = 0 } = {}) {
   let params = {}
   if (fromCity === '' || duration === '') {
     return
@@ -29,4 +29,8 @@ export function addHotCity ({ hotCityName = '' } = {}) {
 
 export function getPoisByCityName ({ cityName = '' } = {}) {
   return request.get(`/pois`, { city_name: cityName })
+}
+
+export function getCityByPosition ({ lon = '', lat = '' } = {}) {
+  return request.get(`/position_to_city`, { lon: lon, lat: lat })
 }

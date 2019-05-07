@@ -88,7 +88,8 @@ export default {
   onLoad () {
     this.showSearchList = false
     this.getCityList()
-    console.log(store.state.longitude)
+    var curCityName = store.state.curCityName
+    this.positionCities = [{id: 0, name: curCityName}]
   },
   onReachBottom () {
     this.getCityList()
