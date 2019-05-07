@@ -9,6 +9,7 @@
     <div class="mpvue-picer">
       <van-field :value="duration"
                  label="时长"
+                 disabled
                  @click="showPicker">
       </van-field>
       <mpvue-picker ref="mpvuePicker"
