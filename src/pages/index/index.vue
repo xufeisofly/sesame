@@ -33,6 +33,7 @@
         </van-button>
       </div>
     </div>
+    <van-toast id="van-toast" />
     <div id="trip-list">
       <van-cell-group>
         <van-cell v-for="trip in trips"
@@ -56,6 +57,7 @@ import wx from '@/utils/wx'
 import store from '@/pages/cities/store'
 import mpvuePicker from 'mpvue-picker'
 import { getTrips, getCityByPosition } from '@/utils/api'
+import Toast from '@/../static/vant/toast/toast'
 
 export default {
   components: {
@@ -112,14 +114,20 @@ export default {
     },
     onSearchBtnClick () {
       this.loading = true
+      Toast.loading({
+        mask: true,
+        message: '加载中...'
+      })
       this.getTripList()
     },
     getTripList () {
       getTrips({ fromCity: this.fromCity, duration: this.duration, offset: 0 }).then((res) => {
         this.trips = res.data.trips
         this.loading = false
+        Toast.clear()
       }).catch((e) => {
         this.loading = false
+        Toast.fail('加载失败')
       })
     },
     loadPosition () {
@@ -143,16 +151,11 @@ export default {
     }
   },
 
-  created () {
-    // let app = getApp()
-  },
-
   mounted () {
     this.fromCity = store.state.fromCity
   },
 
   onLoad () {
-    console.log('index.index onLoad')
     // get location
     this.loadPosition()
   }
