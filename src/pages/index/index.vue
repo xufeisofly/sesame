@@ -1,17 +1,21 @@
 <template>
   <div class="index-wrap">
+    <div class="back-banner">
+    </div>
     <div id="home">
       <van-cell-group>
         <van-field :value="fromCity"
                    placeholder="出发城市"
-                   disabled
+                   readonly
+                   input-align="center"
                    @click="goCities">
         </van-field>
       </van-cell-group>
       <div class="mpvue-picer">
         <van-field :value="duration"
                    placeholder="时长"
-                   disabled
+                   readonly
+                   input-align="center"
                    @click="showPicker">
         </van-field>
         <mpvue-picker ref="mpvuePicker"
@@ -27,6 +31,7 @@
         <van-button type="primary"
                     :loading="loading"
                     size="large"
+                    custom-class="custom-class"
                     @click="onSearchBtnClick"
                     loading-text="搜索中...">
           搜索
@@ -162,7 +167,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 #search {
   width: 90%;
   margin:10px auto;
@@ -172,9 +177,27 @@ export default {
   background-color: #fff;
   padding: 10px 10px;
   margin: 10px 10px;
+  position:relative;
+  top:-120px;
 }
 
 #trip-list {
-  margin: 10px;
+  margin: 50px 10px 10px 10px;
+  position: relative;
+  top: -120px;
+}
+
+.back-banner {
+  height:300px;
+  background-color:#333;
+  border-radius:20px;
+  position: relative;
+  top: -20px;
+}
+
+.custom-class {
+  color:#6b450a !important;
+  background-color:#ffd300 !important;
+  border:1px solid #ffd300 !important;
 }
 </style>
