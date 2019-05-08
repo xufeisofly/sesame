@@ -1,43 +1,44 @@
 <template>
-  <div id="home">
-    <van-cell-group>
-      <van-field :value="fromCity"
-                 label="出发城市"
-                 disabled
-                 @click="goCities">
-      </van-field>
-    </van-cell-group>
-    <div class="mpvue-picer">
-      <van-field :value="duration"
-                 label="时长"
-                 disabled
-                 @click="showPicker">
-      </van-field>
-      <mpvue-picker ref="mpvuePicker"
-                    mode="selector"
-                    @onChange="onChange"
-                    @onConfirm="onConfirm"
-                    @onCancel="onCancel"
-                    :pickerValueDefault="pickerValueDefault"
-                    :pickerValueArray="pickerValueArray">
-      </mpvue-picker>
-    </div>
-    <div id="search">
-      <van-button type="default"
-                  plain
-                  hairline
-                  :loading="loading"
-                  size="large"
-                  @click="onSearchBtnClick"
-                  loading-text="搜索中...">
-        搜索
-      </van-button>
+  <div class="index-wrap">
+    <div id="home">
+      <van-cell-group>
+        <van-field :value="fromCity"
+                   placeholder="出发城市"
+                   disabled
+                   @click="goCities">
+        </van-field>
+      </van-cell-group>
+      <div class="mpvue-picer">
+        <van-field :value="duration"
+                   placeholder="时长"
+                   disabled
+                   @click="showPicker">
+        </van-field>
+        <mpvue-picker ref="mpvuePicker"
+                      mode="selector"
+                      @onChange="onChange"
+                      @onConfirm="onConfirm"
+                      @onCancel="onCancel"
+                      :pickerValueDefault="pickerValueDefault"
+                      :pickerValueArray="pickerValueArray">
+        </mpvue-picker>
+      </div>
+      <div id="search">
+        <van-button type="primary"
+                    :loading="loading"
+                    size="large"
+                    @click="onSearchBtnClick"
+                    loading-text="搜索中...">
+          搜索
+        </van-button>
+      </div>
     </div>
     <div id="trip-list">
       <van-cell-group>
         <van-cell v-for="trip in trips"
                   :key="trip.id"
                   :title="trip.to_city"
+                  :label="trip.desc"
                   :value="trip.duration_min + ' 分钟'"
                   size="large"
                   :url="'/pages/pois/main?city=' + trip.to_city"
@@ -65,7 +66,7 @@ export default {
     return {
       duration: '1小时',
       loading: false,
-      pickerValueDefault: [1],
+      pickerValueDefault: [0],
       pickerValueArray: [
         {
           label: '1小时',
@@ -82,6 +83,10 @@ export default {
         {
           label: '4小时',
           value: 4
+        },
+        {
+          label: '5小时',
+          value: 5
         }
       ],
       trips: []
@@ -102,16 +107,8 @@ export default {
     showPicker () {
       this.$refs.mpvuePicker.show()
     },
-    onChange () {
-      console.log('onChange')
-    },
     onConfirm (e) {
-      console.log('onConfirm')
-      console.log(e.label)
       this.duration = e.label
-    },
-    onCancel () {
-      console.log('onCancel')
     },
     onSearchBtnClick () {
       this.loading = true
@@ -163,4 +160,18 @@ export default {
 </script>
 
 <style scoped>
+#search {
+  width: 90%;
+  margin:10px auto;
+}
+
+#home {
+  background-color: #fff;
+  padding: 10px 10px;
+  margin: 10px 10px;
+}
+
+#trip-list {
+  margin: 10px;
+}
 </style>

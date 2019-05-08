@@ -30,4 +30,7 @@ export default {
 </script>
 
 <style scoped>
+#pois-list {
+  margin: 10px;
+}
 </style>

@@ -31,6 +31,10 @@ export default {
 </script>
 
 <style>
+body {
+  background-color: #f2f3f5;
+}
+
 .container {
   height: 100%;
   display: flex;

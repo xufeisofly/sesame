@@ -136,6 +136,10 @@ export default {
 </script>
 
 <style scoped>
+.cities-wrap {
+  background-color: #fff;
+}
+
 .city-item {
   text-align: center;
   font-size: 14px;
