@@ -7,6 +7,7 @@
         <van-field :value="fromCity"
                    placeholder="出发城市"
                    readonly
+                   input-class="input-class"
                    input-align="center"
                    @click="goCities">
         </van-field>
@@ -15,6 +16,7 @@
         <van-field :value="duration"
                    placeholder="时长"
                    readonly
+                   input-class="input-class2"
                    input-align="center"
                    @click="showPicker">
         </van-field>
@@ -116,6 +118,7 @@ export default {
     },
     onConfirm (e) {
       this.duration = e.label
+      this.trips = []
     },
     onSearchBtnClick () {
       this.loading = true
@@ -196,8 +199,18 @@ export default {
 }
 
 .custom-class {
-  color:#6b450a !important;
+  color: #6b450a !important;
   background-color:#ffd300 !important;
   border:1px solid #ffd300 !important;
+}
+
+.input-class {
+  font-size: 24px;
+  color: #6b450a;
+}
+
+.input-class2 {
+  font-size: 20px;
+  color: #333;
 }
 </style>
